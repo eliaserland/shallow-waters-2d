@@ -1,0 +1,10 @@
+# Vim swap files.
+*.swp
+*.swo
+# Object files.
+*.o
+# gcc precompiled headers.
+*.gch
+# Compiled programs for testing.
+shallow_water
+
