@@ -12,7 +12,7 @@ EXE = shallow_water
 #OBJ = $(SRC:.c=.o)
 
 CC = gcc
-CFLAGS = -std=c99 -Wall -g 	#-I../datastructures-v1.0.8.2/include
+CFLAGS = -std=c99 -Wall -g -lm	#-I../datastructures-v1.0.8.2/include
 
 all:	$(EXE)
 
@@ -24,7 +24,7 @@ clean:
 	-rm -f $(EXE) $(OBJ)
 	
 shallow_water: shallow_water.c
-	gcc -o $@ $(CFLAGS) $^
+	gcc $^ -o $@ $(CFLAGS) 
 
 memtest: shallow_water
 	valgrind --leak-check=full --show-reachable=yes ./$<
