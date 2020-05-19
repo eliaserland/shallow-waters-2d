@@ -24,8 +24,6 @@ y_cc = x_cc';
 % h0 = @(x,y) 10 + 6*(x>0.8).*(y<0.2) ; 
 h0 = @(x,y) 10 + 6*(x>0.4).*(x<0.6).*(y>0.4).*(y<0.6) ; 
 
-
-
 % w_c = [0.5 0.5];   %pos of wave peak in h0 below
 % w_c = [0.6 0.3];   %pos of wave peak in h0 below
 % h0 = @(x,y) 10 + 7*cos(4*pi*sqrt((x-w_c(1)).^2+(y-w_c(2)).^2))...
@@ -68,32 +66,25 @@ for i = 1:Ntimesteps
     qx = u(:,:,2); 
     qy = u(:,:,3); 
     
-    u_gh(:,:,1) = [ 0 , 2*h(1,:)-h(2,:) , 0 ;
-                       2*h(:,1)-h(:,2) , h , 2*h(:,end)-h(:,end-1) ;
-                       0 , 2*h(end,:)-h(end-1,:) , 0                   ];  
+    u_gh(:,:,1) = [0 		   , 2*h(1,:)-h(2,:)       , 0 		     	   ;
+                   2*h(:,1)-h(:,2) , h                     , 2*h(:,end)-h(:,end-1) ;
+                   0 		   , 2*h(end,:)-h(end-1,:) , 0                     ];  
                                   
-    u_gh(:,:,2) = [ 0 , -qx(1,:) , 0 ;
-                      2*qx(:,1)-qx(:,2), qx , 2*qx(:,end)-qx(:,end-1) ;
-                       0 , -qx(end,:) , 0            ];
+    u_gh(:,:,2) = [0 		    , -qx(1,:)   , 0 		           ;
+                   2*qx(:,1)-qx(:,2), qx         , 2*qx(:,end)-qx(:,end-1) ;
+                   0 		    , -qx(end,:) , 0            	   ];
                        
-    u_gh(:,:,3) = [ 0 , 2*qy(1,:)-qy(2,:) , 0 ;
-                      -qy(:,1), qy , -qy(:,end) ;
-                       0 , 2*qy(end,:)-qy(end-1,:) , 0            ];
+    u_gh(:,:,3) = [0 	    , 2*qy(1,:)-qy(2,:)       , 0 	   ;
+                   -qy(:,1) , qy 		      , -qy(:,end) ;
+                   0 	    , 2*qy(end,:)-qy(end-1,:) , 0          ];
                        
-%     u_gh(:,:,2) = [ 0 , -qx(1,:) , 0 ;
-%                       -qx(:,1), qx , -qx(:,end) ;
-%                        0 , -qx(end,:) , 0            ];
-%                        
-%     u_gh(:,:,3) = [ 0 , -qy(1,:) , 0 ;
-%                       -qy(:,1), qy , -qy(:,end) ;
-%                        0 , -qy(end,:) , 0            ];
-%     
+ 
     for n = 1:3
      
         u(:,:,n) = u_gh(2:end-1,2:end-1,n) + 1/4*(u_gh(3:end,2:end-1,n)...
             - 2*u_gh(2:end-1,2:end-1,n) + u_gh(1:end-2,2:end-1,n))...
             - lambda/2*( f(u_gh(3:end,2:end-1,:),n) - f(u_gh(1:end-2,2:end-1,:),n) )...
-            + 1/4*(u_gh(2:end-1,3:end,n) - 2*u_gh(2:end-1,2:end-1,n) + u_gh(2:end-1,1:end-2,n))...
+            + 1/4*(u_gh(2:end-1,3:end,n) - 2*u_gh(2:end-1,2:end-1,n) + 	u_gh(2:end-1,1:end-2,n))...
             - lambda/2*( g(u_gh(2:end-1,3:end,:),n) - g(u_gh(2:end-1,1:end-2,:),n));
         
     end
