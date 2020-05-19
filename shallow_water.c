@@ -20,7 +20,8 @@ typedef struct u {
 	double r; 
 } u_vector;
 
-double init_func(double x, double y) 
+
+double init_func_h(double x, double y) 
 {
 	double value;
 	if ((x > 0.4) && (x < 0.6) && (y > 0.4) && (y < 0.6)) {
@@ -59,9 +60,15 @@ int main (void)
 	// Set Initial conditions
 	for (int i = 0; i < CELLCOUNT+2; i++) {
 		for (int j = 0; j < CELLCOUNT+2; j++) {
-			u[i][j].h = init_func(x_cc[i],y_cc[j]);
-			u[i][j].q = 0; 
-			u[i][j].r = 0;
+			if (i == 0 || j == 0 || i == CELLCOUNT+1 || j == CELLCOUNT+1){
+				u[i][j].h = 0;
+				u[i][j].q = 0; 
+				u[i][j].r = 0;
+			} else {
+				u[i][j].h = init_func_h(x_cc[i-1],y_cc[j-1]);
+				u[i][j].q = 0; // For non-zero init velocity, this must be changed.
+				u[i][j].r = 0;
+			}
 		}
 	}
 
@@ -71,7 +78,7 @@ int main (void)
 		// calc ghost cell
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < CELLCOUNT; j++) {
-				
+
 
 			}
 		}
