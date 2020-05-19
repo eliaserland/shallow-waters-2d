@@ -30,13 +30,6 @@ double init_func(double x, double y)
 	}
 	return value; 
 }
- 
-/* 
-void set_initcond ()
-{
-	
-} 
-*/
 
 int main (void) 
 {	
@@ -59,25 +52,30 @@ int main (void)
 		x_cc[i] = dx/2 + i*dx; 
 		y_cc[i] = dx/2 + i*dx;
 	}
-	
-	
+
+	// Matrix of state vector u
 	u_vector u[CELLCOUNT+2][CELLCOUNT+2];
 
+	// Set Initial conditions
 	for (int i = 0; i < CELLCOUNT+2; i++) {
 		for (int j = 0; j < CELLCOUNT+2; j++) {
-			u[i][j].h = 
-			u[i][j].q = 2; 
-			u[i][j].r = 3;
+			u[i][j].h = init_func(x_cc[i],y_cc[j]);
+			u[i][j].q = 0; 
+			u[i][j].r = 0;
 		}
-	}	
-	
-	// Set Initial conditions	
+	}
+
 	// Main loop
-	
-/*	for (int i = 0; i < Ntimesteps; 1++) {
+	for (int i = 0; i < Ntimesteps; i++) {
 	
 		// calc ghost cell
-	}*/
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < CELLCOUNT; j++) {
+				
+
+			}
+		}
+	}
 	
 	return 0;
 }
